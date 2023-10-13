@@ -26,8 +26,7 @@ public class Telefone {
 	@Column(name = "idtelefone")
 	private Integer idTelefone;
 	
-	@OneToOne(mappedBy = "telefone")
-	@JoinColumn(name = "instrutor", referencedColumnName = "instrutor")
+	@OneToOne
 	private Instrutor instrutor;
 	
 	@Column(name = "numero")

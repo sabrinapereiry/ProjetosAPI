@@ -38,7 +38,8 @@ public class Instrutor {
 	@OneToMany(mappedBy = "instrutor")
 	private List<Turma> turma;
 	
-	@OneToOne
+	@OneToOne(mappedBy = "instrutor")
+	@JoinColumn(name = "telefone", referencedColumnName = "telefone")
 	private Telefone telefone;
 
 	public Integer getIdInstrutor() {
@@ -71,6 +72,14 @@ public class Instrutor {
 
 	public void setTurma(List<Turma> turma) {
 		this.turma = turma;
+	}
+
+	public Telefone getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
 	
 	
