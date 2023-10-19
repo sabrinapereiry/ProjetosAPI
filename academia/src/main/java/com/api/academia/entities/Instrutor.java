@@ -82,7 +82,4 @@ public class Instrutor {
 		this.telefone = telefone;
 	}
 	
-	
-
-	
 }
