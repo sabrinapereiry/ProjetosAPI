@@ -12,8 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
-import jakarta.persistence.ManyToMany;
+
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -48,8 +47,8 @@ public class Produto {
 	@OneToMany(mappedBy = "produto")
 	private Categoria categoria;
 
-	@ManyToMany(mappedBy = "produto")
-	private List<Pedido> pedidos;
+	@OneToMany(mappedBy = "produto")
+	private List<PedidoItem> itens;
 
 	public Long getIdProduto() {
 		return idProduto;
@@ -115,11 +114,11 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public List<PedidoItem> getItens() {
+		return itens;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setItens(List<PedidoItem> itens) {
+		this.itens = itens;
 	}
 }
