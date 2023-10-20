@@ -12,15 +12,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "idProduto",
-		scope=Produto.class
-	)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idProduto", scope = Produto.class)
 @Entity
 @Table(name = "produto")
 public class Produto {
@@ -29,28 +26,28 @@ public class Produto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
 	private Long idProduto;
-	
+
 	@Column(name = "qtd_estoque", nullable = false)
 	private Integer qtdEstoque;
-	
+
 	@Column(name = "nome", nullable = false)
 	private String nome;
-	
+
 	@Column(name = "descricao", nullable = false)
 	private String descricao;
-	
+
 	@Column(name = "data_cadastro", nullable = false)
 	private Date dataCadastro;
-	
+
 	@Column(name = "valor_unitario", nullable = false)
 	private BigDecimal valorUnitario;
-	
-	@Column(name = "imagem", nullable = false)
-	private String imagem;
-	
+
+	@Lob // este campo deve ser tratado como um objeto grande (BLOB)
+	private byte[] imagem; // Armazenamento direto da imagem como bytes
+
 	@OneToMany(mappedBy = "produto")
 	private Categoria categoria;
-	
+
 	@ManyToMany(mappedBy = "produto")
 	private List<Pedido> pedidos;
 
@@ -102,11 +99,11 @@ public class Produto {
 		this.valorUnitario = valorUnitario;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
