@@ -16,6 +16,9 @@ public class PedidoService {
 	@Autowired
 	PedidoRepository pedidoR;
 
+	@Autowired
+	EmailService emailService;
+	
 	public List<Pedido> listarPedidos() {
 		return pedidoR.findAll();
 	}
@@ -39,7 +42,9 @@ public class PedidoService {
 	}
 
 	public Pedido salvarPedido(Pedido pedido) {
-		return pedidoR.save(pedido);
+		Pedido newPedido = pedidoR.save(pedido);
+		emailService.enviarEmail("emailhipotetico@gmail.com", "Novo pedido cadastrado", newPedido.toString());
+		return newPedido;
 	}
 
 	public Pedido atualizarPedido(Pedido pedido) {

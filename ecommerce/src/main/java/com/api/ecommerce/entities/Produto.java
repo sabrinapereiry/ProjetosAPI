@@ -28,19 +28,19 @@ public class Produto {
 	@Column(name = "id_produto")
 	private Long idProduto;
 
-	@Column(name = "qtd_estoque", nullable = false)
+	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
 
-	@Column(name = "nome", nullable = false)
+	@Column(name = "nome")
 	private String nome;
 
-	@Column(name = "descricao", nullable = false)
+	@Column(name = "descricao", unique = true)
 	private String descricao;
 
-	@Column(name = "data_cadastro", nullable = false)
+	@Column(name = "data_cadastro")
 	private Date dataCadastro;
 
-	@Column(name = "valor_unitario", nullable = false)
+	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 
 	@Lob // este campo deve ser tratado como um objeto grande (BLOB)
