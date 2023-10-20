@@ -29,7 +29,7 @@ public class PedidoService {
 			pedidoDTO.setIdPedido(pedidos.getIdPedido());
 			pedidoDTO.setDataPedido(pedidos.getDataPedido());
 			pedidoDTO.setValorTotal(pedidos.getValorTotal());
-			relatorioDTO.add((RelatorioPedidoDTO) relatorioDTO);
+			relatorioDTO.add(pedidoDTO);
 		}
 		return relatorioDTO;
 	}
