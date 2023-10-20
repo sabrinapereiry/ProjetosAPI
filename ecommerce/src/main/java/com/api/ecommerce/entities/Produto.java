@@ -12,7 +12,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -44,7 +46,8 @@ public class Produto {
 	@Lob // este campo deve ser tratado como um objeto grande (BLOB)
 	private byte[] imagem; // Armazenamento direto da imagem como bytes
 
-	@OneToMany(mappedBy = "produto")
+	@ManyToOne
+	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	private Categoria categoria;
 
 	@OneToMany(mappedBy = "produto")

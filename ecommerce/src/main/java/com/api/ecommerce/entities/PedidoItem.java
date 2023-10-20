@@ -49,7 +49,7 @@ public class PedidoItem {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_pedido", nullable = false)
-	private Produto pedido;
+	private Pedido pedido;
 
 	public Long getIdPedidoItem() {
 		return idPedidoItem;
@@ -107,11 +107,11 @@ public class PedidoItem {
 		this.produto = produto;
 	}
 
-	public Produto getPedido() {
+	public Pedido getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(Produto pedido) {
+	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
 	}
 }

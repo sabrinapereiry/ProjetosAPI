@@ -50,7 +50,7 @@ public class Pedido {
 	private List<PedidoItem> itens;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente", referencedColumnName = "cliente")
+	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
 
 	public Long getIdPedido() {

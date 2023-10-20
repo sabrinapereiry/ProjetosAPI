@@ -61,7 +61,7 @@ public class EnderecoController {
 
 	@DeleteMapping
 	public ResponseEntity<String> deletarEndereco(@RequestBody Endereco endereco) {
-		if (enderecoService.deletarEndereco(endereco)) {
+		if (Boolean.TRUE.equals(enderecoService.deletarEndereco(endereco))) {
 			return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
 
 		} else {
