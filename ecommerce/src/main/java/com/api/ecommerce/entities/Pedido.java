@@ -13,9 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @JsonIdentityInfo(
@@ -47,14 +46,11 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 	
-	@ManyToMany
-	@JoinTable(name = "item_pedido",
-    joinColumns = @JoinColumn(name = "id_pedido"),
-    inverseJoinColumns = @JoinColumn(name = "id_produto"))
-	private List<Produto> produtos;
+	@OneToMany(mappedBy = "pedido")
+	private List<PedidoItem> itens;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente", referencedColumnName = "cliente")
+	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
 
 	public Long getIdPedido() {
@@ -105,12 +101,12 @@ public class Pedido {
 		this.valorTotal = valorTotal;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<PedidoItem> getItens() {
+		return itens;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setItens(List<PedidoItem> itens) {
+		this.itens = itens;
 	}
 
 	public Cliente getCliente() {
