@@ -116,6 +116,13 @@ public class Pedido {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	@Override
+	public String toString() {
+		return "Pedido [idPedido=" + idPedido + ", dataPedido=" + dataPedido + ", dataEntrega=" + dataEntrega
+				+ ", dataEnvio=" + dataEnvio + ", status=" + status + ", valorTotal=" + valorTotal + ", itens=" + itens
+				+ ", cliente=" + cliente + "]";
+	}
 	
 	
 }
