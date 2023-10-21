@@ -42,9 +42,9 @@ public class PedidoService {
 	}
 
 	public Pedido salvarPedido(Pedido pedido) {
-		Pedido newPedido = pedidoR.save(pedido);
-		emailService.enviarEmail("emailhipotetico@gmail.com", "Novo pedido cadastrado", newPedido.toString());
-		return newPedido;
+		RelatorioPedidoDTO relatorio = new RelatorioPedidoDTO(pedido.getIdPedido(), pedido.getDataPedido(), pedido.getValorTotal());
+		emailService.enviarEmail("emailhipotetico@gmail.com", "Novo pedido cadastrado", relatorio.toString());
+		return pedidoR.save(pedido);
 	}
 
 	public Pedido atualizarPedido(Pedido pedido) {
