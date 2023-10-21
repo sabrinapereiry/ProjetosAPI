@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.ecommerce.entities.Endereco;
 import com.api.ecommerce.services.EnderecoService;
+import com.residencia.biblioteca.dto.ReceitaWsDTO;
 
 @RestController
 @RequestMapping("/enderecos")
@@ -69,5 +70,19 @@ public class EnderecoController {
 			return new ResponseEntity<>("Não foi possível deletar!", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
+	// teste cep
+	@GetMapping("/consulta-cnpj/{cnpj}")
+	public ResponseEntity<ReceitaWsDTO> consultaCep(@PathVariable String cep) {
+
+		return new ResponseEntity<>(enderecoService.consultaCep(cep), HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
 
 }

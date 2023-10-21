@@ -1,12 +1,16 @@
 package com.api.ecommerce.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.api.ecommerce.entities.Endereco;
 import com.api.ecommerce.repositories.EnderecoRepository;
+import com.residencia.biblioteca.dto.ReceitaWsDTO;
 
 @Service
 public class EnderecoService {
@@ -37,35 +41,44 @@ public class EnderecoService {
 	}
 
 	public Endereco atualizarEndereco(Endereco endereco) {
+		if(endereco == null || buscarEnderecoPorId(endereco.getIdEndereco()) == null) {
+			return null;
+		}
+		
 		return enderecoRepo.save(endereco);
 
 	}
 
 	public Boolean deletarEndereco(Endereco endereco) {
+		if (endereco == null || buscarEnderecoPorId(endereco.getIdEndereco()) == null) {
+	        return false;
+	    }
 
-		if (endereco == null) {
-			return false;
-
-		}
-
-		Endereco enderecoExistente = buscarEnderecoPorId(endereco.getIdEndereco());
-		if (enderecoExistente == null) {
-			return false;
-		}
-		enderecoRepo.delete(endereco);
-
-		Endereco enderecoContinuaExistindo = buscarEnderecoPorId(endereco.getIdEndereco());
-		if (enderecoContinuaExistindo == null) {
-			return true;
-		}
-		return false;
-
-		// public ResponseEntity<String> (Endereco endereco) {
-		// enderecoRepo.delete(endereco);// codigo para enviar uma mensagem ao usuario
-		// que ,
-		// os
-		// dados foram digitatdos com sucesso.
-		// return ResponseEntity.ok("Endereco deletado com sucesso");
-
+	    enderecoRepo.delete(endereco);
+	    
+	    return buscarEnderecoPorId(endereco.getIdEndereco()) == null;
 	}
+	
+	// teste cep
+	public ReceitaWsDTO consultaCep (String cep) {
+		RestTemplate restTemplate = new RestTemplate();
+		String uri = "https://receitaws.com.br/v1/cnpj/{cnpj}";
+		
+		Map<String,String> params = new HashMap<String,String>();
+		
+		params.put("cep", cep);
+		
+		ReceitaWsDTO receitaDto = restTemplate.getForObject(uri, ReceitaWsDTO.class, params);
+		
+		return receitaDto;
+			
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }
