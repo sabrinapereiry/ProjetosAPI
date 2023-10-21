@@ -31,26 +31,23 @@ public class ClienteService {
 
 	// Put
 	public Cliente atualizarCliente(Cliente cliente) {
+		if(cliente == null || buscarClienteId(cliente.getIdCliente()) == null) {
+			return null;
+		}
+		
 		return clienteRepo.save(cliente);
 	}
 
 	// Delete
 	public Boolean deletarCliente(Cliente cliente) {
-		if (cliente == null)
-			return false;
 
-		Cliente clienteExistente = buscarClienteId(cliente.getIdCliente());
-		if (clienteExistente == null)
-			return false;
+		if (cliente == null || buscarClienteId(cliente.getIdCliente()) == null) {
+	        return false;
+	    }
 
-		clienteRepo.delete(cliente);
-
-		Cliente clienteContinuaExistente = buscarClienteId(cliente.getIdCliente());
-
-		if (clienteContinuaExistente == null)
-			return true;
-
-		return false;
+	    clienteRepo.delete(cliente);
+	    
+	    return buscarClienteId(cliente.getIdCliente()) == null;
 
 	}
 }

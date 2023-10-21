@@ -48,26 +48,21 @@ public class PedidoService {
 	}
 
 	public Pedido atualizarPedido(Pedido pedido) {
+		if(pedido == null || buscarIdPedido(pedido.getIdPedido()) == null) {
+			return null;
+		}
+		
 		return pedidoR.save(pedido);
 	}
 
 	public Boolean deletarPedido(Pedido pedido) {
-		if (pedido == null)
-			return false;
+		if (pedido == null || buscarIdPedido(pedido.getIdPedido()) == null) {
+	        return false;
+	    }
 
-		Pedido pedidoExistente = buscarIdPedido(pedido.getIdPedido());
-
-		if (pedidoExistente == null)
-			return false;
-
-		pedidoR.delete(pedido);
-
-		Pedido pedidoExiste = buscarIdPedido(pedido.getIdPedido());
-
-		if (pedidoExiste == null)
-			return true;
-
-		return false;
+	    pedidoR.delete(pedido);
+	    
+	    return buscarIdPedido(pedido.getIdPedido()) == null;
 
 	}
 }

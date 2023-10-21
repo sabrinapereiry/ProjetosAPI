@@ -35,26 +35,31 @@ import com.api.ecommerce.services.CategoriaService;
 		}
 
 		@GetMapping("/{id}")
-		public ResponseEntity<Categoria> buscarCategoriaPorId(@PathVariable Long id) {
+		public ResponseEntity<?> buscarCategoriaPorId(@PathVariable Long id) {
 			Categoria categoria = categoriaService.buscarCategoriaPorId(id);
 
 			if (categoria == null) {
-				return new ResponseEntity<>(categoria, HttpStatus.NOT_FOUND);
+				return new ResponseEntity<>("Categoria não encontrada", HttpStatus.NOT_FOUND);
 			} else {
 				return new ResponseEntity<>(categoria, HttpStatus.OK);
 			}
 		}
 
 		@PutMapping
-		public ResponseEntity<Categoria> atualizar(@RequestBody Categoria categoria) {
-			return new ResponseEntity<>(categoriaService.atualizarCategoria(categoria), HttpStatus.OK);
+		public ResponseEntity<String> atualizar(@RequestBody Categoria categoria) {
+			if (categoriaService.atualizarCategoria(categoria) != null) {
+				return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+			}else {
+				return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+			}
 		}
 
 		@DeleteMapping
 		public ResponseEntity<String> deletarCategoria(@RequestBody Categoria categoria) {
-			if (Boolean.TRUE.equals(categoriaService.deletarCategoria(categoria)))
+			if (Boolean.TRUE.equals(categoriaService.deletarCategoria(categoria))) {
 				return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
-			else
+			}else {
 				return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
+			}
 		}
 }

@@ -27,24 +27,20 @@ public class ProdutoService {
 	}
 
 	public Produto atualizarProduto(Produto produto) {
+		if(produto == null || buscarProdutoPorId(produto.getIdProduto()) == null) {
+			return null;
+		}
+		
 		return produtoRepository.save(produto);
 	}
 	
 	public Boolean deletarProduto(Produto produto) {
-		if (produto == null) {
-			return false;
-		} else {
-			if (buscarProdutoPorId(produto.getIdProduto()) == null) {
-				return false;
-			} else {
-				produtoRepository.delete(produto);
+		if (produto == null || buscarProdutoPorId(produto.getIdProduto()) == null) {
+	        return false;
+	    }
 
-				if (buscarProdutoPorId(produto.getIdProduto()) == null) {
-					return true;
-				}else {
-					return false;
-				}
-			}
-		}
+	    produtoRepository.delete(produto);
+	    
+	    return buscarProdutoPorId(produto.getIdProduto()) == null;
 	}
 }

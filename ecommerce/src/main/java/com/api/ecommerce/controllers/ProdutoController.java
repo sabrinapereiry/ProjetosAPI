@@ -39,19 +39,23 @@ public class ProdutoController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> buscarProdutoPorId(@PathVariable Long id){
+	public ResponseEntity<?> buscarProdutoPorId(@PathVariable Long id){
 		Produto produto = produtoService.buscarProdutoPorId(id);
 		
 		if(produto == null) {
-			return new ResponseEntity<>(produto, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Produto não encontrado", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(produto, HttpStatus.OK);
 		}
 	}
 	
 	@PutMapping
-	public ResponseEntity<Produto> atualizar(@RequestBody Produto produto) {
-		return new ResponseEntity<>(produtoService.atualizarProduto(produto), HttpStatus.OK);
+	public ResponseEntity<String> atualizar(@RequestBody Produto produto) {
+		if (produtoService.atualizarProduto(produto) != null) {
+			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@DeleteMapping

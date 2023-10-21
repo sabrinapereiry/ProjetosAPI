@@ -29,25 +29,22 @@ public class PedidoItemService {
 	}
 
 	public PedidoItem atualizarItem(PedidoItem item) {
+		if(item == null || buscarItemPorId(item.getIdPedidoItem()) == null) {
+			return null;
+		}
+		
 		return pedidoItemRepository.save(item);
 	}
 	
-	public Boolean deletarItem(PedidoItem Item) {
-		if (Item == null) {
-			return false;
-		} else {
-			if (buscarItemPorId(Item.getIdPedidoItem()) == null) {
-				return false;
-			} else {
-				pedidoItemRepository.delete(Item);
+	public Boolean deletarItem(PedidoItem item) {
+		if (item == null || buscarItemPorId(item.getIdPedidoItem()) == null) {
+	        return false;
+	    }
 
-				if (buscarItemPorId(Item.getIdPedidoItem()) == null) {
-					return true;
-				}else {
-					return false;
-				}
-			}
-		}
+	    pedidoItemRepository.delete(item);
+	    
+	    return buscarItemPorId(item.getIdPedidoItem()) == null;
+
 	}
 	
 	public List<RelatorioItemDTO> listarItensDTO() {

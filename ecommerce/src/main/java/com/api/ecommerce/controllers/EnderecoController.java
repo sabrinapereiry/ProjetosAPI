@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.ecommerce.entities.Endereco;
@@ -31,22 +30,14 @@ public class EnderecoController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Endereco> buscarPorId(@PathVariable Long id) {// com parametro
+	public ResponseEntity<?> buscarEnderecoPorId(@PathVariable Long id) {// sem parametro
 		Endereco endereco = enderecoService.buscarEnderecoPorId(id);
 
 		if (endereco == null) {
-			return new ResponseEntity<>(endereco, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Endereco não encontrado", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(endereco, HttpStatus.OK);
 		}
-
-		// return new ResponseEntity<>(enderecoService.buscarEnderecoPorId(id),
-		// HttpStatus.OK);
-	}
-
-	@GetMapping("/porid")
-	public ResponseEntity<Endereco> buscarEnderecoPorId(@RequestParam Long id) {// sem parametro
-		return new ResponseEntity<>(enderecoService.buscarEnderecoPorId(id), HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -55,17 +46,19 @@ public class EnderecoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Endereco> atualizar(@RequestBody Endereco endereco) {
-		return new ResponseEntity<>(enderecoService.atualizarEndereco(endereco), HttpStatus.OK);
+	public ResponseEntity<String> atualizar(@RequestBody Endereco endereco) {
+		if (enderecoService.atualizarEndereco(endereco) != null) {
+			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@DeleteMapping
 	public ResponseEntity<String> deletarEndereco(@RequestBody Endereco endereco) {
 		if (Boolean.TRUE.equals(enderecoService.deletarEndereco(endereco))) {
 			return new ResponseEntity<>("Deletado com sucesso!", HttpStatus.OK);
-
 		} else {
-
 			return new ResponseEntity<>("Não foi possível deletar!", HttpStatus.BAD_REQUEST);
 		}
 	}
