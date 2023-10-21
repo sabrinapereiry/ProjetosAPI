@@ -7,7 +7,6 @@ public class RelatorioPedidoDTO {
 	private Long idPedido; // ID do pedido
 	private Date dataPedido; // Data do pedido
 	private BigDecimal valorTotal; // Valor total
-	// private List<ItemPedidoDTO> itensPedido; // Relação de itens do pedido
 
 	public RelatorioPedidoDTO() {
 		// Construtor padrão
@@ -17,7 +16,6 @@ public class RelatorioPedidoDTO {
 		this.idPedido = idPedido;
 		this.dataPedido = dataPedido;
 		this.valorTotal = valorTotal;
-		// this.itensPedido = itensPedido;
 	}
 
 	// Getters e Setters
@@ -46,11 +44,11 @@ public class RelatorioPedidoDTO {
 		this.valorTotal = valorTotal;
 	}
 
-	// public List<ItemPedido> getItensPedido() {
-	// return itensPedido;
-	// }
-
-	// public void setItensPedido(List<ItemPedido> itensPedido) {
-	// this.itensPedido = itensPedido;
-	// }
+	@Override
+	public String toString() {
+		return "Relatorio do pedido [ID do pedido = " + idPedido + ", Data do pedido = " + dataPedido + ", Valor Total = " + valorTotal
+				+ "]";
+	}
+	
+	
 }

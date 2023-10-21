@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.api.ecommerce.dto.RelatorioItemDTO;
 import com.api.ecommerce.entities.PedidoItem;
 import com.api.ecommerce.services.PedidoItemService;
 
@@ -56,5 +57,16 @@ public class PedidoItemController {
 			return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
 		else
 			return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/relatorio_itens")
+	public ResponseEntity<List<RelatorioItemDTO>> listarPedidoItens() {
+		List<RelatorioItemDTO> itemDTO = pedidoItemService.listarItensDTO();
+
+		if (itemDTO == null) {
+			return new ResponseEntity<>(itemDTO, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(itemDTO, HttpStatus.OK);
+		}
 	}
 }
