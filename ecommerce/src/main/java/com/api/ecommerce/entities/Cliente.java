@@ -16,7 +16,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idCliente", scope = Cliente.class)
+@JsonIdentityInfo(
+		generator = ObjectIdGenerators.PropertyGenerator.class,
+		property = "idCliente",
+		scope=Cliente.class
+	)
+
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -40,14 +45,14 @@ public class Cliente {
 
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
-	
+
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 
 	@OneToOne(mappedBy = "cliente")
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
 	private Endereco endereco;
-	
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
