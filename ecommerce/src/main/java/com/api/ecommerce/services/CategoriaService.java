@@ -27,25 +27,21 @@ public class CategoriaService {
 	}
 
 	public Categoria atualizarCategoria(Categoria categoria) {
+		if(categoria == null || buscarCategoriaPorId(categoria.getIdCategoria()) == null) {
+			return null;
+		}
+		
 		return categoriaRepository.save(categoria);
 	}
 	
 	public Boolean deletarCategoria(Categoria categoria) {
-		if (categoria == null) {
-			return false;
-		} else {
-			if (buscarCategoriaPorId(categoria.getIdCategoria()) == null) {
-				return false;
-			} else {
-				categoriaRepository.delete(categoria);
+	    if (categoria == null || buscarCategoriaPorId(categoria.getIdCategoria()) == null) {
+	        return false;
+	    }
 
-				if (buscarCategoriaPorId(categoria.getIdCategoria()) == null) {
-					return true;
-				}else {
-					return false;
-				}
-			}
-		}
+	    categoriaRepository.delete(categoria);
+	    
+	    return buscarCategoriaPorId(categoria.getIdCategoria()) == null;
 	}
 	
 	

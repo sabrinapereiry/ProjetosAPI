@@ -37,35 +37,21 @@ public class EnderecoService {
 	}
 
 	public Endereco atualizarEndereco(Endereco endereco) {
+		if(endereco == null || buscarEnderecoPorId(endereco.getIdEndereco()) == null) {
+			return null;
+		}
+		
 		return enderecoRepo.save(endereco);
 
 	}
 
 	public Boolean deletarEndereco(Endereco endereco) {
+		if (endereco == null || buscarEnderecoPorId(endereco.getIdEndereco()) == null) {
+	        return false;
+	    }
 
-		if (endereco == null) {
-			return false;
-
-		}
-
-		Endereco enderecoExistente = buscarEnderecoPorId(endereco.getIdEndereco());
-		if (enderecoExistente == null) {
-			return false;
-		}
-		enderecoRepo.delete(endereco);
-
-		Endereco enderecoContinuaExistindo = buscarEnderecoPorId(endereco.getIdEndereco());
-		if (enderecoContinuaExistindo == null) {
-			return true;
-		}
-		return false;
-
-		// public ResponseEntity<String> (Endereco endereco) {
-		// enderecoRepo.delete(endereco);// codigo para enviar uma mensagem ao usuario
-		// que ,
-		// os
-		// dados foram digitatdos com sucesso.
-		// return ResponseEntity.ok("Endereco deletado com sucesso");
-
+	    enderecoRepo.delete(endereco);
+	    
+	    return buscarEnderecoPorId(endereco.getIdEndereco()) == null;
 	}
 }

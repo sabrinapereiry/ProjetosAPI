@@ -31,11 +31,11 @@ public class ClienteController {
 
 	// Resgata por id
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 		Cliente cliente = clienteService.buscarClienteId(id);
 
 		if (cliente == null)
-			return new ResponseEntity<>(cliente, HttpStatus.NOT_FOUND); // 404
+			return new ResponseEntity<>("Cliente não encontrado", HttpStatus.NOT_FOUND); // 404
 
 		else
 			return new ResponseEntity<>(cliente, HttpStatus.OK); // 200
@@ -49,8 +49,12 @@ public class ClienteController {
 
 	// Atualiza
 	@PutMapping
-	public ResponseEntity<Cliente> atualizar(@RequestBody Cliente cliente) {
-		return new ResponseEntity<>(clienteService.atualizarCliente(cliente), HttpStatus.OK);
+	public ResponseEntity<String> atualizar(@RequestBody Cliente cliente) {
+		if (clienteService.atualizarCliente(cliente) != null) {
+			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	// Deleta

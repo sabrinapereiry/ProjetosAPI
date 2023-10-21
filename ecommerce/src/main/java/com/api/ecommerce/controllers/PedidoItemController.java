@@ -36,19 +36,23 @@ public class PedidoItemController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<PedidoItem> buscarPedidoItemPorId(@PathVariable Long id){
+	public ResponseEntity<?> buscarPedidoItemPorId(@PathVariable Long id){
 		PedidoItem item = pedidoItemService.buscarItemPorId(id);
 		
 		if(item == null) {
-			return new ResponseEntity<>(item, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Item não encontrado", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(item, HttpStatus.OK);
 		}
 	}
 	
 	@PutMapping
-	public ResponseEntity<PedidoItem> atualizar(@RequestBody PedidoItem item) {
-		return new ResponseEntity<>(pedidoItemService.atualizarItem(item), HttpStatus.OK);
+	public ResponseEntity<String> atualizar(@RequestBody PedidoItem item) {
+		if (pedidoItemService.atualizarItem(item) != null) {
+			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	@DeleteMapping

@@ -31,11 +31,11 @@ public class PedidoController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 		Pedido pedido = pedidoService.buscarIdPedido(id);
 
 		if (pedido == null) {
-			return new ResponseEntity<>(pedido, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Pedido não encontrado", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(pedido, HttpStatus.OK);
 		}
@@ -57,13 +57,17 @@ public class PedidoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Pedido> atualizarPedido(@RequestBody Pedido pedido) {
-		return new ResponseEntity<>(pedidoService.atualizarPedido(pedido), HttpStatus.OK);
+	public ResponseEntity<String> atualizarPedido(@RequestBody Pedido pedido) {
+		if (pedidoService.atualizarPedido(pedido) != null) {
+			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	@DeleteMapping
 	public ResponseEntity<String> deletarPedido(@RequestBody Pedido pedido) {
-		if (pedidoService.deletarPedido(pedido)) {
+		if (Boolean.TRUE.equals(pedidoService.deletarPedido(pedido))) {
 			return new ResponseEntity<>("{\"msg\":\"Deletado com Sucesso\"}", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("{\"msg\":\"Não foi possível deletar\"}", HttpStatus.BAD_REQUEST);
