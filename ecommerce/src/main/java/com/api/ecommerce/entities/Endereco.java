@@ -1,5 +1,6 @@
 package com.api.ecommerce.entities;
 
+//import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -25,25 +26,25 @@ public class Endereco {
 	@Column(name = "id_endereco")
 	private Long idEndereco;
 
-	@Column(name = "id_endereco")
+	@Column(name = "cep")
 	private String cep;
 
-	@Column(name = "id_endereco")
+	@Column(name = "rua")
 	private String rua;
 
-	@Column(name = "id_endereco")
+	@Column(name = "bairro")
 	private String bairro;
 
-	@Column(name = "id_endereco")
+	@Column(name = "cidade")
 	private String cidade;
 
-	@Column(name = "id_endereco")
+	@Column(name = "numero")
 	private String numero;
 
-	@Column(name = "id_endereco")
+	@Column(name = "complemento")
 	private String complemento;
 
-	@Column(name = "id_endereco")
+	@Column(name = "uf")
 	private String uf;
 	
 	@OneToOne
