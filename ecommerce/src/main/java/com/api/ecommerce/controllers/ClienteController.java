@@ -27,6 +27,7 @@ public class ClienteController {
 	@GetMapping
 	public ResponseEntity<List<Cliente>> listarClientes() {
 		return new ResponseEntity<>(clienteService.listarClientes(), HttpStatus.OK);
+		
 	}
 
 	// Resgata por id
@@ -52,7 +53,7 @@ public class ClienteController {
 	public ResponseEntity<String> atualizar(@RequestBody Cliente cliente) {
 		if (clienteService.atualizarCliente(cliente) != null) {
 			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -66,4 +67,5 @@ public class ClienteController {
 		else
 			return new ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 	}
+
 }

@@ -18,38 +18,37 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@JsonIdentityInfo(
-		generator = ObjectIdGenerators.PropertyGenerator.class,
-		property = "idPedido",
-		scope=Pedido.class
-	)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPedido", scope = Pedido.class)
 @Entity
 @Table(name = "pedido")
 public class Pedido {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_pedido")
 	private Long idPedido;
-	
+
 	@Column(name = "data_pedido")
 	private Date dataPedido;
-	
+
 	@Column(name = "data_entrega")
 	private Date dataEntrega;
-	
+
 	@Column(name = "data_envio")
 	private Date dataEnvio;
-	
+
 	@Column(name = "status")
 	private String status;
-	
+
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
-	
+
+	@Column(name = "forma_pagamento") // Adiciona o atributo formaPagamento
+	private String formaPagamento;
+
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	private List<PedidoItem> itens;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
@@ -118,12 +117,19 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
+	// Adiciona getters e setters para formaPagamento
+	public String getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
+
 	@Override
 	public String toString() {
 		return "Pedido [idPedido=" + idPedido + ", dataPedido=" + dataPedido + ", dataEntrega=" + dataEntrega
 				+ ", dataEnvio=" + dataEnvio + ", status=" + status + ", valorTotal=" + valorTotal + ", itens=" + itens
-				+ ", cliente=" + cliente + "]";
+				+ ", cliente=" + cliente + ", formaPagamento=" + formaPagamento + "]";
 	}
-	
-	
 }

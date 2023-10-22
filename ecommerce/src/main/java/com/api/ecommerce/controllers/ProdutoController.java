@@ -23,40 +23,40 @@ import com.api.ecommerce.services.ProdutoService;
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
-	
+
 	@Autowired
 	ProdutoService produtoService;
-	
+
 	@PostMapping
-	public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto){
+	public ResponseEntity<Produto> cadastrarProduto(@RequestBody Produto produto) {
 		return new ResponseEntity<>(produtoService.cadastrarProduto(produto), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Produto>> listarProdutos(){
+	public ResponseEntity<List<Produto>> listarProdutos() {
 		return new ResponseEntity<>(produtoService.listarProdutos(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<?> buscarProdutoPorId(@PathVariable Long id){
+	public ResponseEntity<?> buscarProdutoPorId(@PathVariable Long id) {
 		Produto produto = produtoService.buscarProdutoPorId(id);
-		
-		if(produto == null) {
+
+		if (produto == null) {
 			return new ResponseEntity<>("Produto não encontrado", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(produto, HttpStatus.OK);
 		}
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<String> atualizar(@RequestBody Produto produto) {
 		if (produtoService.atualizarProduto(produto) != null) {
 			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@DeleteMapping
 	public ResponseEntity<String> deletarProduto(@RequestBody Produto produto) {
 		if (Boolean.TRUE.equals(produtoService.deletarProduto(produto)))
@@ -64,19 +64,12 @@ public class ProdutoController {
 		else
 			return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
 	}
-	
+
 	// imagem
 	@PostMapping("/prodimg")
-	public ResponseEntity<Produto> salvarComFtoto(@RequestPart("produto")String strProduto, 
-			@RequestPart("img") MultipartFile arqImg
-			) throws IOException{
+	public ResponseEntity<Produto> salvarComFtoto(@RequestPart("produto") String strProduto,
+			@RequestPart("img") MultipartFile arqImg) throws IOException {
 		return new ResponseEntity<>(produtoService.salvarProdutoComFoto(strProduto, arqImg), HttpStatus.CREATED);
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -43,7 +43,9 @@ public class Produto {
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 
+	
 	@Lob // este campo deve ser tratado como um objeto grande (BLOB)
+	@Column(name = "imagem_jpg")
 	private byte[] imagem; // Armazenamento direto da imagem como bytes
 
 	@ManyToOne
