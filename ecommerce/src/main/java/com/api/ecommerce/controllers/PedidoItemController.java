@@ -51,10 +51,12 @@ public class PedidoItemController {
 
 	@DeleteMapping
 	public ResponseEntity<String> deletarPedidoItem(@RequestBody PedidoItem item) {
-		if (Boolean.TRUE.equals(pedidoItemService.deletarItem(item)))
-			return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
-		else
-			return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
+	    boolean deleted = pedidoItemService.deletarItem(item);
+	    if (deleted) {
+	        return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>("PedidoItem não encontrado", HttpStatus.NOT_FOUND);
+	    }
 	}
 
 	@GetMapping("/relatorio_itens")

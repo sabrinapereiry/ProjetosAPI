@@ -63,8 +63,12 @@ public class ProdutoController {
 	// imagem
 	@PostMapping("/prodimg")
 	public ResponseEntity<Produto> salvarComFtoto(@RequestPart("produto") String strProduto,
-			@RequestPart("img") MultipartFile arqImg) throws IOException {
-		return new ResponseEntity<>(produtoService.salvarProdutoComFoto(strProduto, arqImg), HttpStatus.CREATED);
+	        @RequestPart("img") MultipartFile arqImg) throws IOException {
+		if (produtoService.salvarProdutoComFoto(strProduto, arqImg) != null) {
+			return new ResponseEntity<>(produtoService.salvarProdutoComFoto(strProduto, arqImg), HttpStatus.CREATED);			
+		}else {
+			return new ResponseEntity<>(produtoService.salvarProdutoComFoto(strProduto, arqImg), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

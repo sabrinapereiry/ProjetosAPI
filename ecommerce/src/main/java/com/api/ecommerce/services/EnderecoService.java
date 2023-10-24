@@ -67,13 +67,16 @@ public class EnderecoService {
 	}
 
 	public Boolean deletarEndereco(Endereco endereco) {
-		if (endereco == null || buscarEnderecoPorId(endereco.getIdEndereco()) == null) {
-			return false;
-		}
+		if (endereco == null) {
+            return false;
+        }
 
-		enderecoRepo.delete(endereco);
-
-		return buscarEnderecoPorId(endereco.getIdEndereco()) == null;
+        if (enderecoRepo.existsById(endereco.getIdEndereco())) {
+        	enderecoRepo.delete(endereco);
+            return true; 
+        } else {
+            return false; 
+        }
 	}
 
 }

@@ -42,14 +42,16 @@ public class PedidoItemService {
 	}
 	
 	public Boolean deletarItem(PedidoItem item) {
-		if (item == null || buscarItemPorId(item.getIdPedidoItem()) == null) {
-	        return false;
-	    }
+		if (item == null) {
+            return false;
+        }
 
-	    pedidoItemRepository.delete(item);
-	    
-	    return buscarItemPorId(item.getIdPedidoItem()) == null;
-
+        if (pedidoItemRepository.existsById(item.getIdPedidoItem())) {
+            pedidoItemRepository.delete(item);
+            return true; 
+        } else {
+            return false; 
+        }
 	}
 	
 	public List<RelatorioItemDTO> listarItensDTO() {

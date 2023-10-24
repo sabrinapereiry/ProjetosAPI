@@ -13,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -34,7 +33,7 @@ public class Produto {
 	@Column(name = "nome")
 	private String nome;
 
-	@Column(name = "descricao", unique = true)
+	@Column(name = "descricao")
 	private String descricao;
 
 	@Column(name = "data_cadastro")
@@ -43,7 +42,7 @@ public class Produto {
 	@Column(name = "valor_unitario")
 	private BigDecimal valorUnitario;
 
-	@Lob // este campo deve ser tratado como um objeto grande (BLOB)
+	@Column(name = "imagem", columnDefinition = "bytea")
 	private byte[] imagem; // Armazenamento direto da imagem como bytes
 
 	@ManyToOne
@@ -52,6 +51,10 @@ public class Produto {
 
 	@OneToMany(mappedBy = "produto")
 	private List<PedidoItem> itens;
+
+	public Produto() {
+		dataCadastro = new Date();
+	}
 
 	public Long getIdProduto() {
 		return idProduto;

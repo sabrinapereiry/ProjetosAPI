@@ -54,7 +54,7 @@ public class ClienteController {
 	// Deleta
 	@DeleteMapping
 	public ResponseEntity<String> deletarCliente(@RequestBody Cliente cliente) {
-		if (clienteService.deletarCliente(cliente))
+		if (Boolean.TRUE.equals(clienteService.deletarCliente(cliente)))
 			return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
 
 		else

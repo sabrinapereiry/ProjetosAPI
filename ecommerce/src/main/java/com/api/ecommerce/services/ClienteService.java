@@ -41,14 +41,15 @@ public class ClienteService {
 
 	// Delete
 	public Boolean deletarCliente(Cliente cliente) {
+		if (cliente == null) {
+            return false;
+        }
 
-		if (cliente == null || buscarClienteId(cliente.getIdCliente()) == null) {
-	        return false;
-	    }
-
-	    clienteRepo.delete(cliente);
-	    
-	    return buscarClienteId(cliente.getIdCliente()) == null;
-
+        if (clienteRepo.existsById(cliente.getIdCliente())) {
+            clienteRepo.delete(cliente);
+            return true; 
+        } else {
+            return false; 
+        }
 	}
 }

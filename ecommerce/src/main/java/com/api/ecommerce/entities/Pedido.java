@@ -7,7 +7,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,12 +46,16 @@ public class Pedido {
 	@Column(name = "valor_total")
 	private BigDecimal valorTotal;
 	
-	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "pedido")
 	private List<PedidoItem> itens;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_cliente", referencedColumnName = "id_cliente")
 	private Cliente cliente;
+	
+	public Pedido() {
+		this.dataPedido = new Date();
+	}
 
 	public Long getIdPedido() {
 		return idPedido;

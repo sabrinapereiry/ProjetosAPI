@@ -58,6 +58,15 @@ public class PedidoController {
 			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	@PutMapping("/valor-total")
+	public ResponseEntity<String> atualizarValorTotal(@RequestBody Pedido pedido) {
+		if (pedidoService.atualizarValorTotal(pedido) != null) {
+			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
+		}
+	}
 
 	@DeleteMapping
 	public ResponseEntity<String> deletarPedido(@RequestBody Pedido pedido) {

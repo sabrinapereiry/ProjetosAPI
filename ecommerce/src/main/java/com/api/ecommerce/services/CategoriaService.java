@@ -36,13 +36,16 @@ public class CategoriaService {
 	}
 	
 	public Boolean deletarCategoria(Categoria categoria) {
-	    if (categoria == null || buscarCategoriaPorId(categoria.getIdCategoria()) == null) {
-	        return false;
-	    }
+		if (categoria == null) {
+            return false;
+        }
 
-	    categoriaRepository.delete(categoria);
-	    
-	    return buscarCategoriaPorId(categoria.getIdCategoria()) == null;
+        if (categoriaRepository.existsById(categoria.getIdCategoria())) {
+        	categoriaRepository.delete(categoria);
+            return true; 
+        } else {
+            return false; 
+        }
 	}
 	
 	

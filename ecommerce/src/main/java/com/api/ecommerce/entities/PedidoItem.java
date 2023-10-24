@@ -44,11 +44,11 @@ public class PedidoItem {
 	private BigDecimal valorLiquido;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_produto", nullable = false)
+	@JoinColumn(name = "id_produto")
 	private Produto produto;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_pedido", nullable = false)
+	@JoinColumn(name = "id_pedido")
 	private Pedido pedido;
 
 	public Long getIdPedidoItem() {

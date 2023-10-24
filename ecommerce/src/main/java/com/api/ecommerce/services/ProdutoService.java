@@ -40,13 +40,16 @@ public class ProdutoService {
 	}
 	
 	public Boolean deletarProduto(Produto produto) {
-		if (produto == null || buscarProdutoPorId(produto.getIdProduto()) == null) {
-	        return false;
-	    }
+		if (produto == null) {
+            return false;
+        }
 
-	    produtoRepository.delete(produto);
-	    
-	    return buscarProdutoPorId(produto.getIdProduto()) == null;
+        if (produtoRepository.existsById(produto.getIdProduto())) {
+            produtoRepository.delete(produto);
+            return true; 
+        } else {
+            return false; 
+        }
 	}
 	
 	
@@ -61,7 +64,7 @@ public class ProdutoService {
 			
 			produto = objMp.readValue(strProduto, Produto.class);
 		}catch(IOException e) {
-			System.out.println("Erro ao converter a string produto" + e.toString());
+			return null;
 		}
 		
 		//arqImg.getName()    pega o nome da imagem

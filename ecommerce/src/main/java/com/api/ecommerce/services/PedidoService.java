@@ -1,5 +1,6 @@
 package com.api.ecommerce.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.ecommerce.dto.RelatorioPedidoDTO;
 import com.api.ecommerce.entities.Pedido;
+import com.api.ecommerce.entities.PedidoItem;
 import com.api.ecommerce.exceptions.NoSuchElementException;
 import com.api.ecommerce.repositories.PedidoRepository;
 
@@ -57,13 +59,31 @@ public class PedidoService {
 	}
 
 	public Boolean deletarPedido(Pedido pedido) {
-		if (pedido == null || buscarIdPedido(pedido.getIdPedido()) == null) {
-	        return false;
-	    }
+		if (pedido == null) {
+            return false;
+        }
 
-	    pedidoR.delete(pedido);
-	    
-	    return buscarIdPedido(pedido.getIdPedido()) == null;
-
+        if (pedidoR.existsById(pedido.getIdPedido())) {
+            pedidoR.delete(pedido);
+            return true; 
+        } else {
+            return false; 
+        }
+	}
+	
+	public Pedido atualizarValorTotal(Pedido pedido) {
+		if(pedido == null || buscarIdPedido(pedido.getIdPedido()) == null) {
+			return null;
+		}
+		List<PedidoItem> itens = pedido.getItens();
+		BigDecimal total = null;
+		
+		for (PedidoItem item : itens) {
+			total.add(item.getValorLiquido());
+		}
+		
+		pedido.setValorTotal(total);
+		
+		return pedidoR.save(pedido);
 	}
 }
