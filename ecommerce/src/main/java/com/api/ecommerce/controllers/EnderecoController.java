@@ -44,6 +44,11 @@ public class EnderecoController {
 	public ResponseEntity<Endereco> salvar(@RequestBody Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.salvarEndereco(endereco), HttpStatus.CREATED);
 	}
+	
+	@PostMapping("/porcep")
+	public ResponseEntity<Endereco> salvarDTO(@RequestBody Endereco endereco) {
+		return new ResponseEntity<>(enderecoService.salvarEnderecoDTO(endereco), HttpStatus.CREATED);
+	}
 
 	@PutMapping
 	public ResponseEntity<String> atualizar(@RequestBody Endereco endereco) {
