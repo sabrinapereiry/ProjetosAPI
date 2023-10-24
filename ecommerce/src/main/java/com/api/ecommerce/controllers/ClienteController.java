@@ -31,14 +31,8 @@ public class ClienteController {
 
 	// Resgata por id
 	@GetMapping("/{id}")
-	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-		Cliente cliente = clienteService.buscarClienteId(id);
-
-		if (cliente == null)
-			return new ResponseEntity<>("Cliente não encontrado", HttpStatus.NOT_FOUND); // 404
-
-		else
-			return new ResponseEntity<>(cliente, HttpStatus.OK); // 200
+	public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id) {
+		return new ResponseEntity<>(clienteService.buscarClienteId(id), HttpStatus.OK); // 200
 	}
 
 	// Salva

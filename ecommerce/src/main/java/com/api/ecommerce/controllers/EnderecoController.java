@@ -30,21 +30,15 @@ public class EnderecoController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> buscarEnderecoPorId(@PathVariable Long id) {// sem parametro
-		Endereco endereco = enderecoService.buscarEnderecoPorId(id);
-
-		if (endereco == null) {
-			return new ResponseEntity<>("Endereco não encontrado", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(endereco, HttpStatus.OK);
-		}
+	public ResponseEntity<Endereco> buscarEnderecoPorId(@PathVariable Long id) {// sem parametro
+		return new ResponseEntity<>(enderecoService.buscarEnderecoPorId(id), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<Endereco> salvar(@RequestBody Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.salvarEndereco(endereco), HttpStatus.CREATED);
 	}
-	
+
 	@PostMapping("/porcep")
 	public ResponseEntity<Endereco> salvarDTO(@RequestBody Endereco endereco) {
 		return new ResponseEntity<>(enderecoService.salvarEnderecoDTO(endereco), HttpStatus.CREATED);
@@ -54,7 +48,7 @@ public class EnderecoController {
 	public ResponseEntity<String> atualizar(@RequestBody Endereco endereco) {
 		if (enderecoService.atualizarEndereco(endereco) != null) {
 			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
 		}
 	}

@@ -21,40 +21,34 @@ import com.api.ecommerce.services.PedidoItemService;
 @RestController
 @RequestMapping("/itens")
 public class PedidoItemController {
-	
+
 	@Autowired
 	PedidoItemService pedidoItemService;
-	
+
 	@PostMapping
-	public ResponseEntity<PedidoItem> cadastrarPedidoItem(@RequestBody PedidoItem item){
+	public ResponseEntity<PedidoItem> cadastrarPedidoItem(@RequestBody PedidoItem item) {
 		return new ResponseEntity<>(pedidoItemService.cadastrarItem(item), HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<PedidoItem>> listarPedidoItems(){
+	public ResponseEntity<List<PedidoItem>> listarPedidoItems() {
 		return new ResponseEntity<>(pedidoItemService.listarItems(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<?> buscarPedidoItemPorId(@PathVariable Long id){
-		PedidoItem item = pedidoItemService.buscarItemPorId(id);
-		
-		if(item == null) {
-			return new ResponseEntity<>("Item não encontrado", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(item, HttpStatus.OK);
-		}
+	public ResponseEntity<PedidoItem> buscarPedidoItemPorId(@PathVariable Long id) {
+		return new ResponseEntity<>(pedidoItemService.buscarItemPorId(id), HttpStatus.OK);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<String> atualizar(@RequestBody PedidoItem item) {
 		if (pedidoItemService.atualizarItem(item) != null) {
 			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@DeleteMapping
 	public ResponseEntity<String> deletarPedidoItem(@RequestBody PedidoItem item) {
 		if (Boolean.TRUE.equals(pedidoItemService.deletarItem(item)))
@@ -62,7 +56,7 @@ public class PedidoItemController {
 		else
 			return new ResponseEntity<>("Não foi possível deletar", HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@GetMapping("/relatorio_itens")
 	public ResponseEntity<List<RelatorioItemDTO>> listarPedidoItens() {
 		List<RelatorioItemDTO> itemDTO = pedidoItemService.listarItensDTO();

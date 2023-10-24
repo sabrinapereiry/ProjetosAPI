@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.api.ecommerce.entities.Produto;
+import com.api.ecommerce.exceptions.NoSuchElementException;
 import com.api.ecommerce.repositories.ProdutoRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +28,7 @@ public class ProdutoService {
 	}
 
 	public Produto buscarProdutoPorId(Long id) {
-		return produtoRepository.findById(id).orElse(null);
+		return produtoRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Produto", id));
 	}
 
 	public Produto atualizarProduto(Produto produto) {

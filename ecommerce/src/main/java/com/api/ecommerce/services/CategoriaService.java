@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.ecommerce.entities.Categoria;
+import com.api.ecommerce.exceptions.NoSuchElementException;
 import com.api.ecommerce.repositories.CategoriaRepository;
 
 @Service
@@ -23,7 +24,7 @@ public class CategoriaService {
 	}
 
 	public Categoria buscarCategoriaPorId(Long id) {
-		return categoriaRepository.findById(id).orElse(null);
+		return categoriaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Categoria", id));
 	}
 
 	public Categoria atualizarCategoria(Categoria categoria) {

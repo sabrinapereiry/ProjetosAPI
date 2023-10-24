@@ -3,6 +3,8 @@ package com.api.ecommerce.entities;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -50,7 +52,7 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos;
 
-	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
 	private Endereco endereco;
 

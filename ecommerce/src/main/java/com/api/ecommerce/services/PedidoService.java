@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.ecommerce.dto.RelatorioPedidoDTO;
 import com.api.ecommerce.entities.Pedido;
+import com.api.ecommerce.exceptions.NoSuchElementException;
 import com.api.ecommerce.repositories.PedidoRepository;
 
 @Service
@@ -38,7 +39,7 @@ public class PedidoService {
 	}
 
 	public Pedido buscarIdPedido(Long id) {
-		return pedidoR.findById(id).orElse(null);
+		return pedidoR.findById(id).orElseThrow(() -> new NoSuchElementException("Pedido", id));
 	}
 
 	public Pedido salvarPedido(Pedido pedido) {

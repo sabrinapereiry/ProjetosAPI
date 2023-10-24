@@ -7,16 +7,16 @@ public class RelatorioItemDTO {
 	private Long idProduto;
 	private String nome;
 	private BigDecimal valorVenda;
-	private Integer quantidade;
+	private BigDecimal quantidade;
 	private BigDecimal valorBruto;
-	private Double percentualDesconto;
+	private BigDecimal percentualDesconto;
 	private BigDecimal valorLiquido;
 
 	public RelatorioItemDTO() {
 	}
 
-	public RelatorioItemDTO(Long idProduto, String nome, BigDecimal valorVenda, Integer quantidade,
-			BigDecimal valorBruto, Double percentualDesconto, BigDecimal valorLiquido) {
+	public RelatorioItemDTO(Long idProduto, String nome, BigDecimal valorVenda, BigDecimal quantidade,
+			BigDecimal valorBruto, BigDecimal percentualDesconto, BigDecimal valorLiquido) {
 		this.idProduto = idProduto;
 		this.nome = nome;
 		this.valorVenda = valorVenda;
@@ -50,12 +50,12 @@ public class RelatorioItemDTO {
 		this.valorVenda = valorVenda;
 	}
 
-	public Integer getQuantidade() {
+	public BigDecimal getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
+	public void setQuantidade(BigDecimal bigDecimal) {
+		this.quantidade = bigDecimal;
 	}
 
 	public BigDecimal getValorBruto() {
@@ -66,12 +66,12 @@ public class RelatorioItemDTO {
 		this.valorBruto = valorBruto;
 	}
 
-	public Double getPercentualDesconto() {
+	public BigDecimal getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(Double percentualDesconto) {
-		this.percentualDesconto = percentualDesconto;
+	public void setPercentualDesconto(BigDecimal bigDecimal) {
+		this.percentualDesconto = bigDecimal;
 	}
 
 	public BigDecimal getValorLiquido() {

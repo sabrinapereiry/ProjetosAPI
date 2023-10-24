@@ -29,10 +29,10 @@ public class PedidoItem {
 	private Long idPedidoItem;
 
 	@Column(name = "quantidade")
-	private Integer quantidade;
+	private BigDecimal quantidade;
 
 	@Column(name = "percentual_desconto")
-	private Double percentualDesconto;
+	private BigDecimal percentualDesconto;
 
 	@Column(name = "valor_venda")
 	private BigDecimal valorVenda;
@@ -59,19 +59,19 @@ public class PedidoItem {
 		this.idPedidoItem = idPedidoItem;
 	}
 
-	public Integer getQuantidade() {
+	public BigDecimal getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
 	}
 
-	public Double getPercentualDesconto() {
+	public BigDecimal getPercentualDesconto() {
 		return percentualDesconto;
 	}
 
-	public void setPercentualDesconto(Double percentualDesconto) {
+	public void setPercentualDesconto(BigDecimal percentualDesconto) {
 		this.percentualDesconto = percentualDesconto;
 	}
 

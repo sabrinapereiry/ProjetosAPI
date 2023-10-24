@@ -1,5 +1,6 @@
 package com.api.ecommerce.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.ecommerce.dto.RelatorioItemDTO;
 import com.api.ecommerce.entities.PedidoItem;
+import com.api.ecommerce.exceptions.NoSuchElementException;
 import com.api.ecommerce.repositories.PedidoItemRepository;
 
 @Service
@@ -17,6 +19,9 @@ public class PedidoItemService {
 	PedidoItemRepository pedidoItemRepository;
 
 	public PedidoItem cadastrarItem(PedidoItem item) {
+		item.setValorBruto(item.getValorVenda().multiply(item.getQuantidade()));
+		item.setPercentualDesconto(item.getValorBruto().multiply(item.getPercentualDesconto().divide(BigDecimal.valueOf(100))));
+		item.setValorLiquido(item.getValorBruto().subtract(item.getPercentualDesconto()));
 		return pedidoItemRepository.save(item);
 	}
 
@@ -25,7 +30,7 @@ public class PedidoItemService {
 	}
 
 	public PedidoItem buscarItemPorId(Long id) {
-		return pedidoItemRepository.findById(id).orElse(null);
+		return pedidoItemRepository.findById(id).orElseThrow(() -> new NoSuchElementException("PedidoItem", id));
 	}
 
 	public PedidoItem atualizarItem(PedidoItem item) {

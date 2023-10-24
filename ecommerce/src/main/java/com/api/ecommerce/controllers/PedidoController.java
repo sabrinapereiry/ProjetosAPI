@@ -31,14 +31,8 @@ public class PedidoController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
-		Pedido pedido = pedidoService.buscarIdPedido(id);
-
-		if (pedido == null) {
-			return new ResponseEntity<>("Pedido não encontrado", HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(pedido, HttpStatus.OK);
-		}
+	public ResponseEntity<Pedido> buscarPorId(@PathVariable Long id) {
+		return new ResponseEntity<>(pedidoService.buscarIdPedido(id), HttpStatus.OK);
 	}
 
 	@GetMapping("/relatorio-pedidos") // o mapping não pode ser igual.
@@ -60,7 +54,7 @@ public class PedidoController {
 	public ResponseEntity<String> atualizarPedido(@RequestBody Pedido pedido) {
 		if (pedidoService.atualizarPedido(pedido) != null) {
 			return new ResponseEntity<>("Atualização realizada com sucesso", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity<>("Não foi possível atualizar", HttpStatus.BAD_REQUEST);
 		}
 	}

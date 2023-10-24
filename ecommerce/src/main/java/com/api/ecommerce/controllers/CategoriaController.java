@@ -35,14 +35,8 @@ import com.api.ecommerce.services.CategoriaService;
 		}
 
 		@GetMapping("/{id}")
-		public ResponseEntity<?> buscarCategoriaPorId(@PathVariable Long id) {
-			Categoria categoria = categoriaService.buscarCategoriaPorId(id);
-
-			if (categoria == null) {
-				return new ResponseEntity<>("Categoria não encontrada", HttpStatus.NOT_FOUND);
-			} else {
-				return new ResponseEntity<>(categoria, HttpStatus.OK);
-			}
+		public ResponseEntity<Categoria> buscarCategoriaPorId(@PathVariable Long id) {
+			return new ResponseEntity<>(categoriaService.buscarCategoriaPorId(id), HttpStatus.OK);
 		}
 
 		@PutMapping
